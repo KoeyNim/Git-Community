@@ -1,12 +1,9 @@
-<!-- base.html 상속 -->
 {% extends "main/base.html" %}
-<!-- 타이틀 정보 -->
 {% block title %} movie_list.html {% endblock title %}
-<!-- static 불러오기 -->
 {% load myweb_filter %}
 {% block content %}
 <div class="container">
-    <div class="row justify-content-between my-3">  <!-- 양쪽정렬 justify-content-between로 변경 -->
+    <div class="row justify-content-between my-3">
         <!--정렬-->
         <div class="col-2">
             <select class="form-control so">
@@ -38,7 +35,7 @@
         <tbody>
         {% if movie_list %}
         {% for movie in movie_list %}
-        <tr class="text-center"> <!-- 중앙 정렬 -->
+        <tr class="text-center">
             <td>
                 <!--게시글 번호 -> 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
                 {{ movie_list.paginator.count|sub:movie_list.start_index|sub:forloop.counter0|add:1 }}
@@ -50,15 +47,15 @@
                 {% endif %}
             </td>
 
-            <td class="text-left"> <!-- 왼쪽 정렬 -->
+            <td class="text-left">
                 <a href="{% url 'myweb:MoDetail' movie.id %}">{{ movie.subject | truncatechars:40 }}</a>
                 {% if movie.comment_set.count > 0 %}
                 <span class="text-danger small ml-2">{{ movie.comment_set.count }}</span>
                 {% endif %}
             </td>
-            <td>{{ movie.author.username }}</td> <!-- 글쓴이 -->
-            <td>{{ movie.create_date | date:'Y-m-d H:i' }}</td> <!--작성 날짜 및 시간-->
-            <td>{{ movie.hits }}</td> <!-- 조회수 -->
+            <td>{{ movie.author.username }}</td>
+            <td>{{ movie.create_date | date:'Y-m-d H:i' }}</td>
+            <td>{{ movie.hits }}</td>
         </tr>
         {% endfor %}
         {% else %}

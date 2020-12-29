@@ -5,7 +5,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
-
+# 파일 경로
 def FilePath(instance, filename):
     # upload_to="%Y/%m/%d" 처럼 날짜로 세분화
     ymd_path = timezone.now().strftime('%Y/%m/%d')
@@ -16,7 +16,7 @@ def FilePath(instance, filename):
     # 결합 후 return
     return '/'.join([ymd_path, uuid_name + extension])
 
-
+# 공지사항 model
 class Notice(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="작성자", on_delete=models.CASCADE)  # 기존 모델을 속성으로 가져갈 경우 ForeignKey를 사용, on_delete=models.CASCADE 공지가 삭제 될 경우 삭제
     subject = models.CharField(max_length=100, verbose_name="제목")
@@ -34,6 +34,7 @@ class Notice(models.Model):
         verbose_name_plural = "공지사항"
 
 
+# 질문 model
 class Question(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="작성자", on_delete=models.CASCADE)
     subject = models.CharField(max_length=100, verbose_name="제목")
@@ -51,6 +52,7 @@ class Question(models.Model):
         verbose_name_plural = "질문게시판"
 
 
+# 답변 model
 class Answer(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="작성자", on_delete=models.CASCADE)
     question = models.ForeignKey(Question, verbose_name="질문아이디", on_delete=models.CASCADE)
@@ -65,6 +67,7 @@ class Answer(models.Model):
         verbose_name_plural = "질문에대한답변"
 
 
+# 영화 게시판 model
 class Movie(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="작성자", on_delete=models.CASCADE)
     subject = models.CharField(verbose_name="제목", max_length=100)
@@ -76,7 +79,7 @@ class Movie(models.Model):
     upload_file = models.FileField(verbose_name="파일", upload_to=FilePath, null=True, blank=True)
     file_subject = models.CharField(verbose_name="파일제목", max_length=64, null=True)
 
-    def __str__(self):  # id 대신 제목을 표시
+    def __str__(self):
         return self.subject
 
     def delete(self, *args, **kargs):
@@ -90,6 +93,7 @@ class Movie(models.Model):
         verbose_name_plural = "영화게시판"
 
 
+# 게임 게시판 model
 class Game(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="작성자", on_delete=models.CASCADE)
     subject = models.CharField(verbose_name="제목", max_length=100)
@@ -110,6 +114,7 @@ class Game(models.Model):
         verbose_name_plural = "게임게시판"
 
 
+# 댓글 model
 class Comment(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name="작성자", on_delete=models.CASCADE)
     content = models.TextField(verbose_name="내용")

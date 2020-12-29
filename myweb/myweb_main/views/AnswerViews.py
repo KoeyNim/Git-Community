@@ -20,7 +20,6 @@ def AnswerCreate(request, question_id):
             answer.create_date = timezone.now()
             answer.question = question
             answer.save()
-            # redirect 함수는 페이지 이동을 위해 장고가 제공하는 함수 (pk는 urls의 pk를 받아서 사용함), 앵커태그 사용, resolve_url
             return redirect('{}#answer_{}'.format(resolve_url('myweb:QDetail', question_id=question.id), answer.id))
     else:
         form = AnswerForm()

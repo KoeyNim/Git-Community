@@ -60,7 +60,7 @@ def CommentDeleteQuestion(request, comment_id):
         comment.delete()
     return redirect('myweb:QDetail', question_id=comment.question_id)
 
-# 답변 댓글 등록 (답변의 댓글인 경우 question_id 값을 알기 위해 comment.answer.question 처럼 답변(answer)을 통해 질문(question)을 얻을 수 있다.)
+# 답변 댓글 등록
 @login_required(login_url='login:login')
 def CommentCreateAnswer(request, answer_id):
 

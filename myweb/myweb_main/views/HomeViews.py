@@ -8,13 +8,14 @@ def homeList(request):
     # 입력 파라미터
     page = request.GET.get('page', '1')  # 페이지 값이 없을경우 디폴트 값은 1
 
-    HomeQnA_List = Question.objects.order_by('-create_date') # 조회 결과를 역순으로 정렬
+    # 조회 결과를 역순으로 정렬
+    HomeQnA_List = Question.objects.order_by('-create_date')
     HomeNotice_List = Notice.objects.order_by('-create_date')
     HomeMovie_List = Movie.objects.order_by('-create_date')
     HomeGame_List = Game.objects.order_by('-create_date')
 
-    # 페이징처리
-    Paginator_QnA = Paginator(HomeQnA_List, 5)  # 페이지당 5개씩 보여주기
+    # 페이징처리 5개씩
+    Paginator_QnA = Paginator(HomeQnA_List, 5)
     Paginator_Notice = Paginator(HomeNotice_List, 5)
     Paginator_Movie = Paginator(HomeMovie_List, 5)
     Paginator_Game = Paginator(HomeGame_List, 5)

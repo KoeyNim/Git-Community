@@ -12,7 +12,7 @@ class NoticeForm(forms.ModelForm):
 
 class QuestionForm(forms.ModelForm):
     class Meta:
-        model = Question # Question 모델과 연결
+        model = Question
         fields = ['subject', 'content']
         labels = {
             'subject': '제목',
@@ -21,7 +21,7 @@ class QuestionForm(forms.ModelForm):
 
 class AnswerForm(forms.ModelForm):
     class Meta:
-        model = Answer # Answer 모델과 연결
+        model = Answer
         fields = ['content']
         labels = {
             'content': '답변내용',
@@ -29,7 +29,7 @@ class AnswerForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
     class Meta:
-        model = Comment # Comment 모델과 연결
+        model = Comment
         fields = ['content']
         labels = {
             'content': '댓글내용',
@@ -37,7 +37,7 @@ class CommentForm(forms.ModelForm):
 
 class MovieForm(forms.ModelForm):
     class Meta:
-        model = Movie # Moive 모델과 연결
+        model = Movie
         fields = ['subject', 'content', 'upload_file']
         labels = {
             'subject': '제목',
@@ -46,7 +46,7 @@ class MovieForm(forms.ModelForm):
 
 class GameForm(forms.ModelForm):
     class Meta:
-        model = Game  # Game 모델과 연결
+        model = Game
         fields = ['subject', 'content', 'upload_file']
         labels = {
             'subject': '제목',
