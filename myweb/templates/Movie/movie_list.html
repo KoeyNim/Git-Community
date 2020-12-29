@@ -1,0 +1,144 @@
+<!-- base.html 상속 -->
+{% extends "main/base.html" %}
+<!-- 타이틀 정보 -->
+{% block title %} movie_list.html {% endblock title %}
+<!-- static 불러오기 -->
+{% load myweb_filter %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-between my-3">  <!-- 양쪽정렬 justify-content-between로 변경 -->
+        <!--정렬-->
+        <div class="col-2">
+            <select class="form-control so">
+                <option value="recent" {% if so == 'recent' %}selected{% endif %}>최신순</option>
+                <option value="recommend" {% if so == 'recommend' %}selected{% endif %}>추천순</option>
+                <option value="popular" {% if so == 'popular' %}selected{% endif %}>인기순</option>
+            </select>
+        </div>
+        <!--찾기-->
+        <div class="col-4 input-group">
+            <input type="text" class="form-control kw" value="{{ kw|default_if_none:'' }}">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
+            </div>
+        </div>
+    </div>
+
+    <table class="table border-bottom">
+        <thead>
+        <tr class="text-center thead-light">
+            <th>번호</th>
+            <th>추천</th>
+            <th style="width:50%">제목</th>
+            <th>글쓴이</th>
+            <th>작성일시</th>
+            <th>조회수</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if movie_list %}
+        {% for movie in movie_list %}
+        <tr class="text-center"> <!-- 중앙 정렬 -->
+            <td>
+                <!--게시글 번호 -> 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
+                {{ movie_list.paginator.count|sub:movie_list.start_index|sub:forloop.counter0|add:1 }}
+            </td>
+            <!-- 추천 -->
+            <td>
+                {% if movie.voter.all.count > 0 %}
+                <span class="badge badge-warning px-2 py-1">{{ movie.voter.all.count }}</span>
+                {% endif %}
+            </td>
+
+            <td class="text-left"> <!-- 왼쪽 정렬 -->
+                <a href="{% url 'myweb:MoDetail' movie.id %}">{{ movie.subject | truncatechars:40 }}</a>
+                {% if movie.comment_set.count > 0 %}
+                <span class="text-danger small ml-2">{{ movie.comment_set.count }}</span>
+                {% endif %}
+            </td>
+            <td>{{ movie.author.username }}</td> <!-- 글쓴이 -->
+            <td>{{ movie.create_date | date:'Y-m-d H:i' }}</td> <!--작성 날짜 및 시간-->
+            <td>{{ movie.hits }}</td> <!-- 조회수 -->
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3">게시글이 없습니다.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-end">
+        <a href="{% url 'myweb:MoCreate' %}"class="btn btn-outline-secondary">게시글 작성</a>
+    </div>
+
+    <!-- 페이징처리 -->
+    <ul class="pagination justify-content-center">
+        <!-- 이전페이지 -->
+        {% if movie_list.has_previous %}
+        <li class="page-item">
+            <a class="page-link" data-page="{{ movie_list.previous_page_number }}" href="#">&laquo;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">&laquo;</a>
+        </li>
+        {% endif %}
+        <!-- 페이지리스트 -->
+        {% for page_number in movie_list.paginator.page_range %}
+        <!-- 5만큼 작은 것 부터 5만큼 큰 것 까지만 표시 -->
+        {% if page_number >= movie_list.number|add:-5 and page_number <= movie_list.number|add:5 %}
+        {% if page_number == movie_list.number %}
+        <li class="page-item active" aria-current="page">
+            <a class="page-link" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <a class="page-link" data-page="{{ page_number }}" href="#">{{ page_number }}</a>
+        </li>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        <!-- 다음페이지 -->
+        {% if movie_list.has_next %}
+        <li class="page-item">
+            <a class="page-link" data-page="{{ movie_list.next_page_number }}" href="#">&raquo;</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">&raquo;</a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+<!--검색, 정렬 폼-->
+<form id="searchForm" method="get" action="{% url 'myweb:MoList' %}">
+    <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+    <input type="hidden" id="page" name="page" value="{{ page }}">
+    <input type="hidden" id="so" name="so" value="{{ so }}">
+</form>
+{% endblock %}
+
+{% block script %}
+<script type='text/javascript'>
+$(document).ready(function(){
+    $(".page-link").on('click', function() { // page-link 클릭 시 스크립트 실행
+        $("#page").val($(this).data("page"));
+        $("#searchForm").submit();
+    });
+
+    $("#btn_search").on('click', function() { // 검색버튼을 클릭하면 검색어 텍스트창에 입력된 값을 폼 kw필드에 설정하여 폼을 요청
+        $("#kw").val($(".kw").val());
+        $("#page").val(1);  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
+        $("#searchForm").submit();
+    });
+
+    $(".so").on('change', function() { // so라는 클래스를 가지고 있는 select박스의 값이 변경되면 선택된 값을 so 필드에 설정하여 폼 요청
+        $("#so").val($(this).val());
+        $("#page").val(1);
+        $("#searchForm").submit();
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,135 @@
+<!-- base.html 상속 -->
+{% extends "main/base.html" %}
+<!-- 타이틀 정보 -->
+{% block title %} movie_detail.html {% endblock title %}
+{% block content %}
+    <!-- 사용자 오류 표시 -->
+    {% if messages %}
+    <div class="alert alert-danger my-3" role="alert">
+        {% for message in messages %}
+        <strong>{{ message.tags }}</strong>
+        <ul><li>{{ message.message }}</li></ul>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <h2 class="border-bottom ml-3 py-2">{{ movie.subject }}</h2>
+    <div class="row my-3 ">
+        <!-- 질문 -->
+        <div class="col-11" style="float:none; margin:0 auto">
+            <div class="card">
+                <div class="shadow card-body">
+                    <div class="d-flex justify-content-start">
+                        <!-- 등록, 수정 시간 -->
+                        <h5 class="mr-2">{{ movie.author.username }}</h5>
+                        {% if movie.modify_date %}
+                        <p><small>(수정 : {{ movie.modify_date | date:'Y-m-d H:i:s' }})</small></p>
+                        {% else %}
+                        <p><small>({{ movie.create_date | date:'Y-m-d H:i:s' }})</small></p>
+                        {% endif %}
+
+                        <div class="ml-auto">
+                            추천수 : {{ movie.voter.count }}&nbsp;
+                            조회수 : {{ movie.hits }}
+                        </div>
+                    </div>
+                    {% if movie.upload_file %}
+                    <div class="text-right">
+                        <span>첨부파일 :&nbsp;</span>
+                        <a href="{% url 'myweb:MoFileDownload' movie.id %}" >{{ movie.file_subject | truncatechars:20 }}</a>
+                    </div>
+                    {% endif %}
+
+                    <div class="card-text">{{ movie.content | linebreaksbr }}</div>
+
+                    <!-- 로그인한 사용자와 글쓴이가 동일한 경우 수정 및 삭제 버튼이 보이도록 함 -->
+                    <div class="d-flex justify-content-end">
+                    <a href="#" data-uri="{% url 'myweb:MoVote' movie.id  %}" class="recommend btn btn-outline-secondary mr-2">추천</a>
+                    {% if request.user == movie.author %}
+                        <a href="{% url 'myweb:MoModify' movie.id  %}" class="btn btn-outline-secondary ">수정</a>
+                        <a href="#" class="delete btn btn-outline-secondary mx-2" data-uri="{% url 'myweb:MoDelete' movie.id  %}">삭제</a>
+                    {% endif %}
+                    <a href="{% url 'myweb:MoList' %}"class="btn btn-outline-secondary">목록</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-11 mt-3" style="float:none; margin:0 auto">
+            <div class="shadow card">
+
+                <!-- 댓글 -->
+                {% if movie.comment_set.count > 0 %}
+                {% for comment in movie.comment_set.all %}
+                <a name="comment_{{ comment.id }}"></a>
+                <div class="border-bottom">
+                    <div class="mx-3 my-3">
+                        <div class="d-flex justify-content-start">
+                            <h5 class="mr-2">{{ comment.author }}</h5>
+                            {% if comment.modify_date %}
+                            <p><small>(수정 : {{ comment.modify_date | date:'Y-m-d H:i:s' }})</small></p>
+                            {% else %}
+                            <p><small>{{ comment.create_date | date:'Y-m-d H:i:s' }}</small></p>
+                            {% endif %}
+                        </div>
+
+                        <span>{{ comment.content | linebreaksbr }}</span>
+                    </div>
+
+                    {% if request.user == comment.author %}
+                    <div class="d-flex justify-content-end my-3">
+                        <a href="{% url 'myweb:CommentModifyMovie' comment.id %}" class="btn btn-outline-secondary mr-2">수정</a>
+                        <a href="#" class="delete btn btn-outline-secondary mr-3" data-uri="{% url 'myweb:CommentDeleteMovie' comment.id  %}">삭제</a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                <!-- 댓글 양식 -->
+                <div class="container my-3">
+                    <form action="{% url 'myweb:CommentCreateMovie' movie.id %}" method="post" class="my-3">
+                        {% csrf_token %}
+                        {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for field in form %}
+                            {% if field.errors %}
+                            <strong>{{ field.label }}</strong>
+                            {{ field.errors }}
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        <div class="form-group">
+                <textarea {% if not user.is_authenticated %}disabled{% endif %}
+                          name="content" id="con" class="form-control" rows="2"></textarea>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-outline-secondary">등록</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+<!-- 삭제, 추천 버튼 자바스크립트 -->
+{% block script %}
+<script type='text/javascript'>
+$(document).ready(function(){
+    $(".delete").on('click', function() { // 삭제 버튼 자바 스크립트
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = $(this).data('uri');
+        }
+    });
+    $(".recommend").on('click', function() { // 추천 버튼 자바 스크립트
+        if(confirm("정말로 추천하시겠습니까?")) {
+            location.href = $(this).data('uri');
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,124 @@
+
+<!-- base.html 상속 -->
+{% extends "main/base.html" %}
+<!-- 타이틀 정보 -->
+{% block title %} home.html {% endblock title %}
+<!-- static 불러오기 -->
+{% load static %}
+<!-- css 불러오기 -->
+
+
+{% block content %}
+<!-- 캐러셀 -->
+<div class="row">
+    <div id="homeCarousel" class="carousel slide col-md-6" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#homeCarousel" data-slide-to="1"></li>
+            <li data-target="#homeCarousel" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <img src="{% static 'img/sample/sample1.jpg' %}" height="400" class="d-block w-100" alt="사진1">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'img/sample/sample2.jpg' %}" height="400"class="d-block w-100" alt="사진2">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'img/sample/sample3.jpg' %}" height="400"class="d-block w-100" alt="사진3">
+            </div>
+            <a class="carousel-control-prev" href="#homeCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#homeCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="flex-wrap col-md">
+        <div class="home">
+            <h4 class="border-bottom"><a href="{% url 'myweb:NoList' %}">공지사항</a></h4>
+        </div>
+        {% if homeNotice_list %}
+        <table>
+            {% for homeNotice in homeNotice_list %}
+            <tr>
+                <td>
+                    <a href="{% url 'myweb:NoDetail' homeNotice.id %}">{{ homeNotice.subject | truncatechars:15 }}</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>공지사항이 없습니다.</p>
+        {% endif %}
+        <div class="home">
+            <h4 class="border-bottom"><a class="home" href="{% url 'myweb:QList' %}">질문과 답변</a></h4>
+        </div>
+        {% if homeQnA_list %}
+        <table>
+            {% for homeQnA in homeQnA_list %}
+            <tr>
+                <td>
+                    <a href="{% url 'myweb:QDetail' homeQnA.id %}">{{ homeQnA.subject | truncatechars:15 }}</a>
+                    {% if homeQnA.answer_set.count > 0 %}
+                    <span class="text-danger small ml-2">{{ homeQnA.answer_set.count }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>질문이 없습니다.</p>
+        {% endif %}
+    </div>
+
+    <div class="flex-wrap col-md">
+        <div class="home">
+            <h4 class="border-bottom"><a href="{% url 'myweb:MoList' %}">영화</a></h4>
+        </div>
+        {% if homeMovie_list %}
+        <table>
+            {% for homeMovie in homeMovie_list %}
+            <tr>
+                <td>
+                    <a href="{% url 'myweb:MoDetail' homeMovie.id %}">{{ homeMovie.subject | truncatechars:15 }}</a>
+                    {% if homeMovie.comment_set.count > 0 %}
+                    <span class="text-danger small ml-2">{{ homeMovie.comment_set.count }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>게시글이 없습니다.</p>
+        {% endif %}
+
+        <div class="home">
+            <h4 class="border-bottom"><a href="{% url 'myweb:GList' %}">게임</a></h4>
+        </div>
+        {% if homeGame_list %}
+        <table>
+            {% for homeGame in homeGame_list %}
+            <tr>
+                <td>
+                    <a href="{% url 'myweb:GDetail' homeGame.id %}">{{ homeGame.subject | truncatechars:15 }}</a>
+                    {% if homeGame.comment_set.count > 0 %}
+                    <span class="text-danger small ml-2">{{ homeGame.comment_set.count }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <p>게시글이 없습니다.</p>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}
+
+

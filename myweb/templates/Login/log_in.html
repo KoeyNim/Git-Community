@@ -1,0 +1,36 @@
+<!-- base.html 상속 -->
+{% extends "main/base.html" %}
+<!-- 타이틀 정보 -->
+{% block title %} log_in.html {% endblock title %}
+<!-- static 불러오기 -->
+{% load static %}
+<!-- css 불러오기 -->
+{% block extrastyle %} {% static "css/form.css" %} {% endblock %}
+
+{% block content %}
+<div class="flex-container bg-secondary setting-hw">
+    <div class="col-6 shadow border border-3 rounded-top bg-white">
+        <h1 class="text-center">로그인</h1>
+        <form method="post" class="post-form" action="{% url 'login:login' %}">
+            {% csrf_token %}
+            <!--직접 로그인이 아닌 강제로 로그인 해야되는 창으로 이동한 경우 로그인 성공후 이동되는 URL (로그인 시도 전 창으로 돌아감)-->
+            <input type="hidden" name="next" value="{{ next }}">
+            {% include "Errors/form_errors.html" %}
+            <div class="form-group">
+                <label for="username">아이디</label>
+                <input type="text" class="form-control" name="username" id="username"
+                       value="{{ form.username.value|default_if_none:'' }}">
+            </div>
+            <div class="form-group">
+                <label for="password">비밀번호</label>
+                <input type="password" class="form-control" name="password" id="password"
+                       value="{{ form.password.value|default_if_none:'' }}">
+            </div>
+            <div class="d-flex justify-content-end py-3">
+                <button type="submit" class="btn btn-outline-secondary">로그인</button>
+                <a href="{% url 'login:SignUp' %}"class="btn btn-outline-secondary mx-2">회원가입</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
