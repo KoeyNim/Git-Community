@@ -12,8 +12,28 @@ from ..models import Question
 def QuestionDetail(request, question_id):
 
     question = get_object_or_404(Question, pk=question_id)
-    context = {'question': question}
-    return render(request, 'QnA/question_detail.html', context)
+    session_cookie = request.user
+    cookie_name = f'movie_hits:{session_cookie}'
+
+    response = render(request, 'QnA/question_detail.html', {'question': question})
+
+    # 조회수 GET증가 방지 쿠키처리
+    if request.COOKIES.get(cookie_name) is not None:
+        cookies = request.COOKIES.get(cookie_name)
+        cookies_list = cookies.split('|')
+        if str(question_id) not in cookies_list:
+            response.set_cookie(cookie_name, cookies + f'|{question_id}', expires=None)
+            question.hits += 1
+            question.save()
+            return response
+
+
+    else:
+        response.set_cookie(cookie_name, question_id, expires=None)
+        question.hits += 1
+        question.save()
+        return response
+    return response
 
 # 목록 출력
 def QuestionList(request):

@@ -12,8 +12,27 @@ from ..models import Notice
 def NoticeDetail(request, notice_id):
 
     notice = get_object_or_404(Notice, pk=notice_id)
-    context = {'notice': notice}
-    return render(request, 'Notice/notice_detail.html', context)
+    session_cookie = request.user
+    cookie_name = f'movie_hits:{session_cookie}'
+
+    response = render(request, 'Notice/notice_detail.html', {'notice': notice})
+
+    # 조회수 GET증가 방지 쿠키처리
+    if request.COOKIES.get(cookie_name) is not None:
+        cookies = request.COOKIES.get(cookie_name)
+        cookies_list = cookies.split('|')
+        if str(notice_id) not in cookies_list:
+            response.set_cookie(cookie_name, cookies + f'|{notice_id}', expires=None)
+            notice.hits += 1
+            notice.save()
+            return response
+
+    else:
+        response.set_cookie(cookie_name, notice_id, expires=None)
+        notice.hits += 1
+        notice.save()
+        return response
+    return response
 
 # 목록 출력
 def NoticeList(request):

@@ -35,7 +35,7 @@ def GameDetail(request, game_id):
         game.hits += 1
         game.save()
         return response
-    return render(request, 'Game/game_detail.html', {'game': game})
+    return response
 
 # 목록 출력
 def GameList(request):

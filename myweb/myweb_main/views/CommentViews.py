@@ -23,8 +23,8 @@ def CommentCreateQuestion(request, question_id):
             return redirect('{}#comment_{}'.format(resolve_url('myweb:QDetail', question_id=comment.question.id), comment.id))
     else:
         form = CommentForm()
-    context = {'form': form}
-    return render(request, 'QnA/comment_create.html', context)
+    context = {'question': question, 'form': form}
+    return render(request, 'QnA/question_detail.html', context)
 
 # 질문 댓글 수정
 @login_required(login_url='login:login')
@@ -46,7 +46,7 @@ def CommentModifyQuestion(request, comment_id):
     else:
         form = CommentForm(instance=comment)
     context = {'form': form}
-    return render(request, 'QnA/comment_create.html', context)
+    return render(request, 'Modify/comment_modify.html', context)
 
 # 질문 댓글 삭제
 @login_required(login_url='login:login') # 로그인 상태 확인

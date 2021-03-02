@@ -35,7 +35,7 @@ def MovieDetail(request, movie_id):
         movie.hits += 1
         movie.save()
         return response
-    return render(request, 'Movie/movie_detail.html', {'movie': movie})
+    return response
 
 # 목록 출력
 def MovieList(request):
