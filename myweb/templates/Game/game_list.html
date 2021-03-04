@@ -21,7 +21,7 @@
         </div>
     </div>
 
-    <table class="table border-bottom">
+    <table class="table table-bordered table-hover">
         <thead>
         <tr class="text-center thead-light">
             <th>번호</th>
@@ -35,7 +35,7 @@
         <tbody>
         {% if game_list %}
         {% for game in game_list %}
-        <tr class="text-center">
+        <tr class="text-center clickAble" style="cursor:pointer;" data-href="{% url 'myweb:GDetail' game.id %}">
             <td>
                 <!--게시글 번호 -> 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
                 {{ game_list.paginator.count|sub:game_list.start_index|sub:forloop.counter0|add:1 }}
@@ -48,7 +48,7 @@
             </td>
 
             <td class="text-left">
-                <a href="{% url 'myweb:GDetail' game.id %}">{{ game.subject | truncatechars:40 }}</a>
+                {{ game.subject | truncatechars:40 }}
                 {% if game.comment_set.count > 0 %}
                 <span class="text-danger small ml-2">{{ game.comment_set.count }}</span>
                 {% endif %}
@@ -135,6 +135,9 @@ $(document).ready(function(){
         $("#so").val($(this).val());
         $("#page").val(1);
         $("#searchForm").submit();
+    });
+    $(document).on('click','.clickAble',function() {
+    window.location=$(this).data("href");
     });
 });
 </script>

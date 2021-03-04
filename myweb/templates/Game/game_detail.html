@@ -12,7 +12,7 @@
     {% endif %}
 
     <h2 class="border-bottom ml-3 py-2">{{ game.subject }}</h2>
-    <div class="row my-3 ">
+    <div class="row my-3">
         <!-- 질문 -->
         <div class="col-11" style="float:none; margin:0 auto">
             <div class="card">
@@ -50,7 +50,9 @@
                 </div>
             </div>
         </div>
-
+    </div>
+    <h5 class="border-bottom ml-3 py-2">{{ game.comment_set.count }}&nbsp;개의 댓글이 있습니다.</h5>
+    <div class="row my-3">
         <div class="col-11 mt-3" style="float:none; margin:0 auto">
             <div class="shadow card">
                 <!-- 댓글 -->

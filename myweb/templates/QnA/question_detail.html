@@ -20,7 +20,7 @@
                 <div class="shadow card-body">
                     <div class="d-flex justify-content-start">
                         <h5 class="mr-2">{{ question.author.username }}</h5>
-                        {% if game.modify_date %}
+                        {% if question.modify_date %}
                         <p><small>(수정 : {{ question.modify_date | date:'Y-m-d H:i:s' }})</small></p>
                         {% else %}
                         <p><small>({{ question.create_date | date:'Y-m-d H:i:s' }})</small></p>
@@ -42,7 +42,7 @@
 
                     <div class="d-flex justify-content-end">
                     <a href="#" data-uri="{% url 'myweb:QVote' question.id  %}" class="recommend btn btn-outline-secondary mr-2">추천</a>
-                    {% if request.user == game.author %}
+                    {% if request.user == question.author %}
                         <a href="{% url 'myweb:QModify' question.id  %}" class="btn btn-outline-secondary ">수정</a>
                         <a href="#" class="delete btn btn-outline-secondary mx-2" data-uri="{% url 'myweb:QDelete' question.id  %}">삭제</a>
                     {% endif %}
@@ -51,6 +51,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <h5 class="border-bottom ml-3 py-2">{{ question.comment_set.count }}&nbsp;개의 댓글이 있습니다.</h5>
+    <div class="row my-3">
         <div class="col-11 mt-3" style="float:none; margin:0 auto">
             <div class="shadow card">
                 <!-- 질문댓글 -->
@@ -73,8 +76,8 @@
 
                     {% if request.user == comment.author %}
                     <div class="d-flex justify-content-end my-3">
-                        <a href="{% url 'myweb:CommentModifyQuestion' question.id %}" class="btn btn-outline-secondary mr-2">수정</a>
-                        <a href="#" class="delete btn btn-outline-secondary mr-3" data-uri="{% url 'myweb:CommentDeleteQuestion' question.id  %}">삭제</a>
+                        <a href="{% url 'myweb:CommentModifyQuestion' comment.id %}" class="btn btn-outline-secondary mr-2">수정</a>
+                        <a href="#" class="delete btn btn-outline-secondary mr-3" data-uri="{% url 'myweb:CommentDeleteQuestion' comment.id  %}">삭제</a>
                     </div>
                     {% endif %}
                 </div>
@@ -96,52 +99,47 @@
                         </div>
                         {% endif %}
                         <div class="form-group">
-                <textarea {% if not user.is_authenticated %}disabled{% endif %}
-                          name="content" id="con" class="form-control" rows="2"></textarea>
+                    <textarea {% if not user.is_authenticated %}disabled{% endif %}
+                          name="content" class="form-control" rows="2"></textarea>
                         </div>
                         <div class="d-flex justify-content-end">
                             <button type="submit" class="btn btn-outline-secondary">등록</button>
                         </div>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
-
-    <h5 class="border-bottom my-3 py-2">{{ question.answer_set.count }}개의 답변이 있습니다.</h5>
+    <h5 class="border-bottom ml-3 py-2">{{ question.answer_set.count }}&nbsp;개의 답변이 있습니다.</h5>
     {% for answer in question.answer_set.all %}
     <!-- 앵커 태그 -->
     <a name="answer_{{ answer.id }}"></a>
 
     <div class="row my-3">
-        <!-- 추천 -->
-        <div class="col-1">
-            <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{answer.voter.count}}</div>
-            <a href="#" data-uri="{% url 'myweb:AVote' answer.id  %}" class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
-        </div>
         <!-- 답변 -->
-        <div class="col-11">
+        <div class="col-11" style="float:none; margin:0 auto">
             <div class="card">
-                <div class="card-body">
-                    <div class="card-text" style="white-space: pre-line;">{{ answer.content }}</div>
-
-                    <div class="d-flex justify-content-end">
+                <div class="shadow card-body">
+                    <div class="d-flex justify-content-start">
+                        <h5 class="mr-2">{{ answer.author.username }}</h5>
                         {% if answer.modify_date %}
-                        <div class="badge badge-light p-2 text-left mx-3">
-                            <div class="mb-2">수정일시</div>
-                            <div>{{ answer.modify_date }}</div>
-                        </div>
+                        <p><small>(수정 : {{ answer.modify_date | date:'Y-m-d H:i:s' }})</small></p>
+                        {% else %}
+                        <p><small>({{ answer.create_date | date:'Y-m-d H:i:s' }})</small></p>
                         {% endif %}
-                        <div class="badge badge-light p-2 text-left">
-                            <div class="mb-2">작성자 : {{ answer.author.username }}</div>
-                            <div>{{ answer.create_date }}</div>
+
+                        <div class="ml-auto">
+                            추천수 : {{ answer.voter.count }}
                         </div>
                     </div>
+                    <div class="card-text" style="white-space: pre-line;">{{ answer.content | linebreaksbr }}</div>
 
                     {% if request.user == answer.author %}
-                    <div class="my-3">
-                        <a href="{% url 'myweb:AModify' answer.id  %}" class="btn btn-sm btn-outline-secondary">수정</a>
-                        <a href="#" class="delete btn btn-sm btn-outline-secondary " data-uri="{% url 'myweb:ADelete' answer.id  %}">삭제</a>
+                    <div class="d-flex justify-content-end">
+                        <a href="#" data-uri="{% url 'myweb:AVote' answer.id  %}" class="recommend btn btn-outline-secondary">추천</a>
+                        <a href="{% url 'myweb:AModify' answer.id  %}" class="btn btn-outline-secondary mx-2">수정</a>
+                        <a href="#" class="delete btn btn-outline-secondary " data-uri="{% url 'myweb:ADelete' answer.id  %}">삭제</a>
                     </div>
                     {% endif %}
 
@@ -166,33 +164,41 @@
                         {% endfor %}
                     </div>
                     {% endif %}
-                    <div>
-                        <a href="{% url 'myweb:CommentCreateAnswer' answer.id  %}" class="small"><small>댓글 추가 ..</small></a>
-                    </div>
+                        </div>
+                    </form>
 
                 </div>
             </div>
         </div>
     </div>
-
     {% endfor %}
-    <form action="{% url 'myweb:ACreate' question.id %}" method="post" class="my-3">
-        {% csrf_token %}
-        {% if form.errors %}
-        <div class="alert alert-danger" role="alert">
-            {% for field in form %}
-            {% if field.errors %}
-            <strong>{{ field.label }}</strong>
-            {{ field.errors }}
-            {% endif %}
-            {% endfor %}
+
+<div class="row my-3">
+    <div class="col-11" style="float:none; margin:0 auto">
+        <div class="card">
+            <div class="shadow card-body">
+                <form action="{% url 'myweb:ACreate' question.id %}" method="post" class="my-3">
+                    {% csrf_token %}
+                    {% if form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {% for field in form %}
+                        {% if field.errors %}
+                        <strong>{{ field.label }}</strong>
+                        {{ field.errors }}
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <textarea {% if not user.is_authenticated %}disabled{% endif %} name="content" class="form-control" rows="8"></textarea>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <input type="submit" value="등록" class="btn btn-outline-secondary">
+                    </div>
+                </form>
+            </div>
         </div>
-        {% endif %}
-        <div class="form-group">
-            <textarea {% if not user.is_authenticated %}disabled{% endif %} name="content" id="con" class="form-control" rows="10"></textarea>
-        </div>
-        <input type="submit" value="답변등록" class="btn btn-primary">
-    </form>
+    </div>
 </div>
 {% endblock %}
 

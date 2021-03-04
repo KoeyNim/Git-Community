@@ -36,11 +36,11 @@
             <h4 class="border-bottom"><a href="{% url 'myweb:NoList' %}">공지사항</a></h4>
         </div>
         {% if homeNotice_list %}
-        <table>
+        <table class="table-hover">
             {% for homeNotice in homeNotice_list %}
-            <tr>
-                <td>
-                    <a href="{% url 'myweb:NoDetail' homeNotice.id %}">{{ homeNotice.subject | truncatechars:15 }}</a>
+            <tr class="border-bottom">
+                <td class="clickAble" style="cursor:pointer;" data-href="{% url 'myweb:NoDetail' homeNotice.id %}">
+                    {{ homeNotice.subject | truncatechars:12 }}
                 </td>
             </tr>
             {% endfor %}
@@ -52,11 +52,11 @@
             <h4 class="border-bottom"><a class="home" href="{% url 'myweb:QList' %}">질문과 답변</a></h4>
         </div>
         {% if homeQnA_list %}
-        <table>
+        <table class="table-hover">
             {% for homeQnA in homeQnA_list %}
-            <tr>
-                <td>
-                    <a href="{% url 'myweb:QDetail' homeQnA.id %}">{{ homeQnA.subject | truncatechars:15 }}</a>
+            <tr class="border-bottom">
+                <td class="clickAble" style="cursor:pointer;" data-href="{% url 'myweb:QDetail' homeQnA.id %}">
+                    {{ homeQnA.subject | truncatechars:12 }}
                     {% if homeQnA.answer_set.count > 0 %}
                     <span class="text-danger small ml-2">{{ homeQnA.answer_set.count }}</span>
                     {% endif %}
@@ -74,11 +74,11 @@
             <h4 class="border-bottom"><a href="{% url 'myweb:MoList' %}">영화</a></h4>
         </div>
         {% if homeMovie_list %}
-        <table>
+        <table class="table-hover">
             {% for homeMovie in homeMovie_list %}
-            <tr>
-                <td>
-                    <a href="{% url 'myweb:MoDetail' homeMovie.id %}">{{ homeMovie.subject | truncatechars:15 }}</a>
+            <tr class="border-bottom">
+                <td class="clickAble" style="cursor:pointer;" data-href="{% url 'myweb:MoDetail' homeMovie.id %}">
+                    {{ homeMovie.subject | truncatechars:12 }}
                     {% if homeMovie.comment_set.count > 0 %}
                     <span class="text-danger small ml-2">{{ homeMovie.comment_set.count }}</span>
                     {% endif %}
@@ -94,11 +94,11 @@
             <h4 class="border-bottom"><a href="{% url 'myweb:GList' %}">게임</a></h4>
         </div>
         {% if homeGame_list %}
-        <table>
+        <table class="table-hover">
             {% for homeGame in homeGame_list %}
-            <tr>
-                <td>
-                    <a href="{% url 'myweb:GDetail' homeGame.id %}">{{ homeGame.subject | truncatechars:15 }}</a>
+            <tr class="border-bottom">
+                <td class="clickAble" style="cursor:pointer;" data-href="{% url 'myweb:GDetail' homeGame.id %}">
+                    {{ homeGame.subject | truncatechars:12 }}
                     {% if homeGame.comment_set.count > 0 %}
                     <span class="text-danger small ml-2">{{ homeGame.comment_set.count }}</span>
                     {% endif %}
@@ -113,5 +113,16 @@
     </div>
 </div>
 {% endblock %}
+
+{% block script %}
+<script type='text/javascript'>
+$(document).ready(function(){
+    $(document).on('click','.clickAble',function() {
+    window.location=$(this).data("href");
+    });
+});
+</script>
+{% endblock %}
+
 
 

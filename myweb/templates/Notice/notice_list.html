@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <table class="table border-bottom">
+    <table class="table table-bordered table-hover">
         <thead>
         <tr class="text-center thead-light">
             <th>번호</th>
@@ -27,7 +27,7 @@
         <tbody>
         {% if notice_list %}
         {% for notice in notice_list %}
-        <tr class="text-center">
+        <tr class="text-center clickAble" style="cursor:pointer;" data-href="{% url 'myweb:NoDetail' notice.id %}">
             <td>
                 <!--게시글 번호 -> 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
                 {{ notice_list.paginator.count|sub:notice_list.start_index|sub:forloop.counter0|add:1 }}
@@ -40,7 +40,7 @@
             </td>
 
             <td class="text-left">
-                <a href="{% url 'myweb:NoDetail' notice.id %}">{{ notice.subject | truncatechars:40  }}</a>
+                {{ notice.subject | truncatechars:40  }}
                 {% if notice.answer_set.count > 0 %}
                 <span class="text-danger small ml-2">{{ notice.answer_set.count }}</span>
                 {% endif %}
@@ -122,6 +122,9 @@ $(document).ready(function(){
         $("#kw").val($(".kw").val());
         $("#page").val(1);  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
         $("#searchForm").submit();
+    });
+    $(document).on('click','.clickAble',function() {
+    window.location=$(this).data("href");
     });
 });
 </script>
