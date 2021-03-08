@@ -8,6 +8,10 @@
   height: 80vh;
 }
 
+.dotted-line {
+    border-bottom : dotted #F5F5F5;
+}
+
 /* 정 가운데 정렬 */
 .flex-container{
   display: -webkit-box; /* 구글, 사파리 브라우저 */

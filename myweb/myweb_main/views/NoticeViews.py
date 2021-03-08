@@ -13,7 +13,7 @@ def NoticeDetail(request, notice_id):
 
     notice = get_object_or_404(Notice, pk=notice_id)
     session_cookie = request.user
-    cookie_name = f'movie_hits:{session_cookie}'
+    cookie_name = f'notice_hits:{session_cookie}'
 
     response = render(request, 'Notice/notice_detail.html', {'notice': notice})
 

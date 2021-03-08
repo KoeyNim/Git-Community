@@ -16,7 +16,7 @@ from django.http import HttpResponse, Http404
 def GameDetail(request, game_id):
     game = get_object_or_404(Game, pk=game_id)
     session_cookie = request.user
-    cookie_name = f'movie_hits:{session_cookie}'
+    cookie_name = f'game_hits:{session_cookie}'
 
     response = render(request, 'Game/game_detail.html', {'game': game})
 

@@ -31,15 +31,15 @@
         </div>
     </div>
 
-    <div class="flex-wrap col-md">
+    <div class="flex-wrap col-md-3 col-sm-6">
         <div class="home">
-            <h4 class="border-bottom"><a href="{% url 'myweb:NoList' %}">공지사항</a></h4>
+            <h4><a href="{% url 'myweb:NoList' %}">공지사항</a></h4>
         </div>
         {% if homeNotice_list %}
-        <table class="table-hover">
+        <table class="table-hover" width="100%">
+            <tr class="border-top">
             {% for homeNotice in homeNotice_list %}
-            <tr class="border-bottom">
-                <td class="clickAble" style="cursor:pointer;" data-href="{% url 'myweb:NoDetail' homeNotice.id %}">
+                <td class="clickAble dotted-line" style="cursor:pointer;" data-href="{% url 'myweb:NoDetail' homeNotice.id %}">
                     {{ homeNotice.subject | truncatechars:12 }}
                 </td>
             </tr>
@@ -49,13 +49,13 @@
         <p>공지사항이 없습니다.</p>
         {% endif %}
         <div class="home">
-            <h4 class="border-bottom"><a class="home" href="{% url 'myweb:QList' %}">질문과 답변</a></h4>
+            <h4><a class="home" href="{% url 'myweb:QList' %}">질문과 답변</a></h4>
         </div>
         {% if homeQnA_list %}
-        <table class="table-hover">
+        <table class="table-hover" width="100%">
+            <tr class="border-top">
             {% for homeQnA in homeQnA_list %}
-            <tr class="border-bottom">
-                <td class="clickAble" style="cursor:pointer;" data-href="{% url 'myweb:QDetail' homeQnA.id %}">
+                <td class="clickAble dotted-line" style="cursor:pointer;" data-href="{% url 'myweb:QDetail' homeQnA.id %}">
                     {{ homeQnA.subject | truncatechars:12 }}
                     {% if homeQnA.answer_set.count > 0 %}
                     <span class="text-danger small ml-2">{{ homeQnA.answer_set.count }}</span>
@@ -69,15 +69,15 @@
         {% endif %}
     </div>
 
-    <div class="flex-wrap col-md">
+    <div class="flex-wrap col-md-3 col-sm-6">
         <div class="home">
-            <h4 class="border-bottom"><a href="{% url 'myweb:MoList' %}">영화</a></h4>
+            <h4><a href="{% url 'myweb:MoList' %}">영화</a></h4>
         </div>
         {% if homeMovie_list %}
-        <table class="table-hover">
+        <table class="table-hover" width="100%">
+            <tr class="border-top">
             {% for homeMovie in homeMovie_list %}
-            <tr class="border-bottom">
-                <td class="clickAble" style="cursor:pointer;" data-href="{% url 'myweb:MoDetail' homeMovie.id %}">
+                <td class="clickAble dotted-line" style="cursor:pointer;" data-href="{% url 'myweb:MoDetail' homeMovie.id %}">
                     {{ homeMovie.subject | truncatechars:12 }}
                     {% if homeMovie.comment_set.count > 0 %}
                     <span class="text-danger small ml-2">{{ homeMovie.comment_set.count }}</span>
@@ -91,13 +91,13 @@
         {% endif %}
 
         <div class="home">
-            <h4 class="border-bottom"><a href="{% url 'myweb:GList' %}">게임</a></h4>
+            <h4><a href="{% url 'myweb:GList' %}">게임</a></h4>
         </div>
         {% if homeGame_list %}
-        <table class="table-hover">
+        <table class="table-hover" width="100%">
+            <tr class="border-top">
             {% for homeGame in homeGame_list %}
-            <tr class="border-bottom">
-                <td class="clickAble" style="cursor:pointer;" data-href="{% url 'myweb:GDetail' homeGame.id %}">
+                <td class="clickAble dotted-line" style="cursor:pointer;" data-href="{% url 'myweb:GDetail' homeGame.id %}">
                     {{ homeGame.subject | truncatechars:12 }}
                     {% if homeGame.comment_set.count > 0 %}
                     <span class="text-danger small ml-2">{{ homeGame.comment_set.count }}</span>

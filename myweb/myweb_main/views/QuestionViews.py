@@ -13,7 +13,7 @@ def QuestionDetail(request, question_id):
 
     question = get_object_or_404(Question, pk=question_id)
     session_cookie = request.user
-    cookie_name = f'movie_hits:{session_cookie}'
+    cookie_name = f'question_hits:{session_cookie}'
 
     response = render(request, 'QnA/question_detail.html', {'question': question})
 

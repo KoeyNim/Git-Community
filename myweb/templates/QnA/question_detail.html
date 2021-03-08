@@ -135,9 +135,10 @@
                     </div>
                     <div class="card-text" style="white-space: pre-line;">{{ answer.content | linebreaksbr }}</div>
 
-                    {% if request.user == answer.author %}
+
                     <div class="d-flex justify-content-end">
                         <a href="#" data-uri="{% url 'myweb:AVote' answer.id  %}" class="recommend btn btn-outline-secondary">추천</a>
+                    {% if request.user == answer.author %}
                         <a href="{% url 'myweb:AModify' answer.id  %}" class="btn btn-outline-secondary mx-2">수정</a>
                         <a href="#" class="delete btn btn-outline-secondary " data-uri="{% url 'myweb:ADelete' answer.id  %}">삭제</a>
                     </div>
