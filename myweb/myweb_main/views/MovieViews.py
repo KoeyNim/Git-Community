@@ -83,7 +83,7 @@ def MovieCreate(request):
             return redirect('myweb:MoList')
     else:
         form = MovieForm
-    return render(request, 'Movie/movie_create.html', {'form': form})
+    return render(request, 'Post/post_create.html', {'form': form})
 
 # 수정
 @login_required(login_url='login:login')
@@ -107,7 +107,7 @@ def MovieModify(request, movie_id):
             return redirect('myweb:MoDetail', movie_id=movie.id)
     else:
         form = MovieForm(instance=movie)
-    return render(request, 'Movie/movie_create.html', {'form': form})
+    return render(request, 'Post/post_create.html', {'form': form})
 
 # 삭제
 @login_required(login_url='login:login')

@@ -123,7 +123,6 @@ class Comment(models.Model):
     create_date = models.DateTimeField(verbose_name="작성일시")
     modify_date = models.DateTimeField(verbose_name="수정일시", null=True, blank=True)
     question = models.ForeignKey(Question, verbose_name="질문댓글", null=True, blank=True, on_delete=models.CASCADE)
-    answer = models.ForeignKey(Answer, verbose_name="답변댓글", null=True, blank=True, on_delete=models.CASCADE)
     movie = models.ForeignKey(Movie, verbose_name="영화댓글", null=True, blank=True, on_delete=models.CASCADE)
     game = models.ForeignKey(Game, verbose_name="게임댓글", null=True, blank=True, on_delete=models.CASCADE)
 

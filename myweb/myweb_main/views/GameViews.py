@@ -83,7 +83,7 @@ def GameCreate(request):
             return redirect('myweb:GList')
     else:
         form = GameForm
-    return render(request, 'Game/game_create.html', {'form': form})
+    return render(request, 'Post/post_create.html', {'form': form})
 
 # 수정
 @login_required(login_url='login:login')
@@ -106,7 +106,7 @@ def GameModify(request, game_id):
             return redirect('myweb:GDetail', game_id=game.id)
     else:
         form = GameForm(instance=game)
-    return render(request, 'Game/game_create.html', {'form': form})
+    return render(request, 'Post/post_create.html', {'form': form})
 
 # 삭제
 @login_required(login_url='login:login')

@@ -24,7 +24,7 @@ class AnswerForm(forms.ModelForm):
         model = Answer
         fields = ['content']
         labels = {
-            'content': '답변내용',
+            'content': '답변 내용',
         }
 
 class CommentForm(forms.ModelForm):
@@ -32,7 +32,7 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['content']
         labels = {
-            'content': '댓글내용',
+            'content': '댓글 내용',
         }
 
 class MovieForm(forms.ModelForm):
