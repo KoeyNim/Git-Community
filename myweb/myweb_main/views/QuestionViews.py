@@ -8,6 +8,10 @@ from django.utils import timezone
 from ..forms import QuestionForm
 from ..models import Question
 
+import urllib
+import os
+from django.http import HttpResponse, Http404
+
 # 내용 출력
 def QuestionDetail(request, question_id):
 
@@ -115,3 +119,17 @@ def QuestionDelete(request, question_id):
     question.delete()
 
     return redirect('myweb:QList')
+
+# 파일 다운로드
+@login_required(login_url='login:login')
+def QuestionFileDownload(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    url = question.upload_file.url[1:]
+
+    if os.path.exists(url):
+        with open(url, 'rb') as fh:
+            quote_file_url = urllib.parse.quote(question.file_subject.encode('utf-8'))
+            response = HttpResponse(fh.read())
+            response['Content-Disposition'] = 'attachment;filename*=UTF-8\'\'%s' % quote_file_url
+            return response
+        raise Http404

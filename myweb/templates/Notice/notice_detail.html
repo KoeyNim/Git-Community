@@ -32,7 +32,7 @@
                         </div>
                     </div>
 
-                    <div class="card-text">{{ notice.content | linebreaksbr }}</div>
+                    <div class="card-text">{{ notice.content | safe }}</div>
 
                     <div class="d-flex justify-content-end">
                     <a href="#" data-uri="{% url 'myweb:NoVote' notice.id  %}" class="recommend btn btn-outline-secondary mr-2">추천</a>
@@ -48,22 +48,4 @@
 
     </div>
 </div>
-{% endblock %}
-
-<!-- 삭제, 추천 버튼 자바스크립트 -->
-{% block script %}
-<script type='text/javascript'>
-$(document).ready(function(){
-    $(".delete").on('click', function() { // 삭제 버튼 자바 스크립트
-        if(confirm("정말로 삭제하시겠습니까?")) {
-            location.href = $(this).data('uri');
-        }
-    });
-    $(".recommend").on('click', function() { // 추천 버튼 자바 스크립트
-        if(confirm("정말로 추천하시겠습니까?")) {
-            location.href = $(this).data('uri');
-        }
-    });
-});
-</script>
 {% endblock %}

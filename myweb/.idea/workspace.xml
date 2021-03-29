@@ -3,23 +3,19 @@
   <component name="ChangeListManager">
     <list default="true" id="4afe7e43-fb32-4f98-9608-a6639e355b77" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myweb_main/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/myweb_main/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myweb_main/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/myweb_main/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myweb_main/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/myweb_main/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myweb_main/views/CommentViews.py" beforeDir="false" afterPath="$PROJECT_DIR$/myweb_main/views/CommentViews.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myweb_main/views/GameViews.py" beforeDir="false" afterPath="$PROJECT_DIR$/myweb_main/views/GameViews.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myweb_main/views/MovieViews.py" beforeDir="false" afterPath="$PROJECT_DIR$/myweb_main/views/MovieViews.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myweb_main/views/QuestionViews.py" beforeDir="false" afterPath="$PROJECT_DIR$/myweb_main/views/QuestionViews.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Game/game_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Game/game_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/Game/game_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Game/game_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Movie/movie_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Movie/movie_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/Movie/movie_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Movie/movie_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Notice/notice_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Notice/notice_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/Notice/notice_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Notice/notice_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/Post/post_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Post/post_create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/QnA/answer_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/QnA/answer_create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/QnA/comment_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/QnA/comment_create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/QnA/question_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/QnA/question_create.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/QnA/question_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/QnA/question_detail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/QnA/question_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/QnA/question_list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/main/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/main/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main/home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

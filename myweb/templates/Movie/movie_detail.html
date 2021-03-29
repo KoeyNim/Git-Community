@@ -4,15 +4,15 @@
     <!-- 사용자 오류 표시 -->
     {% if messages %}
     <div class="alert alert-danger my-3" role="alert">
-        {% for message in messages %}
+    {% for message in messages %}
         <strong>{{ message.tags }}</strong>
         <ul><li>{{ message.message }}</li></ul>
-        {% endfor %}
+    {% endfor %}
     </div>
     {% endif %}
 
     <h2 class="border-bottom ml-3 py-2">{{ movie.subject }}</h2>
-    <div class="row my-3 ">
+    <div class="row my-3">
         <!-- 질문 -->
         <div class="col-11" style="float:none; margin:0 auto">
             <div class="card">
@@ -37,7 +37,7 @@
                     </div>
                     {% endif %}
 
-                    <div class="card-text">{{ movie.content | linebreaksbr }}</div>
+                    <div class="card-text">{{ movie.content | safe }}</div>
 
                     <div class="d-flex justify-content-end">
                     <a href="#" data-uri="{% url 'myweb:MoVote' movie.id  %}" class="recommend btn btn-outline-secondary mr-2">추천</a>
@@ -55,6 +55,7 @@
     <div class="row my-3">
         <div class="col-11 mt-3" style="float:none; margin:0 auto">
             <div class="shadow card">
+                <div id="more_comment">
                 <!-- 댓글 -->
                 {% if movie.comment_set.count > 0 %}
                 {% for comment in movie.comment_set.all %}
@@ -81,6 +82,24 @@
                     {% endif %}
                 </div>
                 {% endfor %}
+                {% endif %}
+                </div>
+
+                <!-- 댓글 접기, 펼치기 -->
+                {% if movie.comment_set.count %}
+                <div id="hide_more_button" style="cursor:pointer;">
+                    <a id=hide_button_count>&nbsp;댓글 접기 &middot;&nbsp;{{ movie.comment_set.count }}개의 댓글<br></a>
+                </div>
+                <div id="show_more_button" style="display:none;cursor:pointer;">
+                    <a id="show_button_count">&nbsp;댓글 펼치기 &middot;&nbsp;{{ movie.comment_set.count }}개의 댓글<br></a>
+                </div>
+                {% else %}
+                <div id="hide_more_button" style="cursor:pointer;">
+                    <a id=hide_button_count><br></a>
+                </div>
+                <div id="show_more_button" style="display:none;cursor:pointer;">
+                    <a id="show_button_count"><br></a>
+                </div>
                 {% endif %}
 
                 <!-- 댓글 양식 -->
@@ -109,23 +128,5 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
 
-<!-- 삭제, 추천 버튼 자바스크립트 -->
-{% block script %}
-<script type='text/javascript'>
-$(document).ready(function(){
-    $(".delete").on('click', function() { // 삭제 버튼 자바 스크립트
-        if(confirm("정말로 삭제하시겠습니까?")) {
-            location.href = $(this).data('uri');
-        }
-    });
-    $(".recommend").on('click', function() { // 추천 버튼 자바 스크립트
-        if(confirm("정말로 추천하시겠습니까?")) {
-            location.href = $(this).data('uri');
-        }
-    });
-});
-</script>
-{% endblock %}

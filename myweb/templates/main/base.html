@@ -58,22 +58,71 @@
     &copy;; Lee Min Hyeok 2020.
 </footer>
 
-<script>
-      $('#summernote').summernote({
+<script type='text/javascript'>
+$(document).ready(function(){
+    // _create.html
+    $('#summernote').summernote({
         placeholder: '',
         tabsize: 2,
         height: 400,
         lang: "ko-KR",
         toolbar: [
-          ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture', 'video']],
-          ['view', ['fullscreen', 'codeview', 'help']]
-        ]
-      });
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['font', ['bold', 'underline', 'strikethrough', 'clear']],
+            ['color', ['forecolor', 'backcolor']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['table', ['table']],
+            ['insert', ['link', 'picture', 'video']],
+            ['view', ['codeview', 'help']]
+            ],
+            fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+    });
+
+    // _detail.html
+    $(".delete").on('click', function() { // 삭제 버튼
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = $(this).data('uri');
+        }
+    });
+    $(".recommend").on('click', function() { // 추천 버튼
+        if(confirm("정말로 추천하시겠습니까?")) {
+            location.href = $(this).data('uri');
+        }
+    });
+    $('#hide_more_button').click(function(){ // 댓글 접기
+        $('#more_comment').hide();
+        $('#show_more_button').show();
+        $('#hide_more_button').hide();
+    });
+    $('#show_more_button').click(function(){ // 댓글 펼치기
+        $('#more_comment').show();
+        $('#show_more_button').hide();
+        $('#hide_more_button').show();
+    });
+
+    // _list.html
+    $(".page-link").on('click', function() { // page-link 클릭 시 스크립트 실행
+        $("#page").val($(this).data("page"));
+        $("#searchForm").submit();
+    });
+    $("#btn_search").on('click', function() { // 검색버튼을 클릭하면 검색어 텍스트창에 입력된 값을 폼 kw필드에 설정하여 폼을 요청
+        $("#kw").val($(".kw").val());
+        $("#page").val(1);  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
+        $("#searchForm").submit();
+    });
+
+    $(".so").on('change', function() { // so라는 클래스를 가지고 있는 select박스의 값이 변경되면 선택된 값을 so 필드에 설정하여 폼 요청
+        $("#so").val($(this).val());
+        $("#page").val(1);
+        $("#searchForm").submit();
+    });
+    $(document).on('click','.clickAble',function() {
+    window.location=$(this).data("href");
+    });
+});
 </script>
 
 </body>

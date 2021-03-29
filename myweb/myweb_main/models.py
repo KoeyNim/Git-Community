@@ -44,6 +44,8 @@ class Question(models.Model):
     create_date = models.DateTimeField(verbose_name="작성일시")
     modify_date = models.DateTimeField(verbose_name="수정일시", null=True, blank=True)
     voter = models.ManyToManyField(settings.AUTH_USER_MODEL, verbose_name="추천", related_name='QVoter')
+    upload_file = models.FileField(verbose_name="파일", upload_to=FilePath, null=True, blank=True)
+    file_subject = models.CharField(verbose_name="파일제목", max_length=64, null=True)
 
     def __str__(self):
         return self.subject

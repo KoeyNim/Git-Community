@@ -21,6 +21,7 @@ urlpatterns = [
     path('myweb-Q/QCreate/', QuestionViews.QuestionCreate, name='QCreate'), # 질문 작성
     path('myweb-Q/QModify/<int:question_id>/', QuestionViews.QuestionModify, name='QModify'), # 질문 수정
     path('myweb-Q/QDelete/<int:question_id>/', QuestionViews.QuestionDelete, name='QDelete'), # 질문 삭제
+    path('myweb-Q/download/<question_id>', QuestionViews.QuestionFileDownload, name="MoFileDownload"), # 파일
 
     # 답변 url
     path('myweb-A/ACreate/<int:question_id>/', AnswerViews.AnswerCreate, name='ACreate'), # 답변 작성
