@@ -6,9 +6,9 @@
         {% csrf_token %}
         {% include "Errors/form_errors.html" %}
         <div class="form-group">
-            <label for="content">댓글 수정</label>
+            <label for="content">수정</label>
             <textarea class="form-control" name="content" id="content"
-                      rows="3">{{ form.content.value|default_if_none:'' }}</textarea>
+                      rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
         </div>
         <div class="d-flex justify-content-end">
             <button type="submit" class="btn btn-outline-secondary">저장하기</button>
