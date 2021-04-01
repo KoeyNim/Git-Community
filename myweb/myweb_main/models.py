@@ -25,6 +25,8 @@ class Notice(models.Model):
     create_date = models.DateTimeField(verbose_name="작성일시")
     modify_date = models.DateTimeField(verbose_name="수정일시", null=True, blank=True) # null=True, blank=True을 사용하면 어떤 조건으로든 값을 비워둘수 있음
     voter = models.ManyToManyField(settings.AUTH_USER_MODEL, verbose_name="추천", related_name='NoVoter')  # 추천인 기능 (Notice 모델에서 사용한 author와 voter가 모두 settings.AUTH_USER_MODEL모델로 참조되고 있기 때문에 related_name을 써주어야 함)
+    upload_file = models.FileField(verbose_name="파일", upload_to=FilePath, null=True, blank=True)
+    file_subject = models.CharField(verbose_name="파일제목", max_length=64, null=True)
 
     def __str__(self):  # id 대신 제목을 표시
         return self.subject

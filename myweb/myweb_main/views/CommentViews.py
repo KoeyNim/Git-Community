@@ -47,7 +47,7 @@ def CommentModifyQuestion(request, comment_id):
     else:
         form = CommentForm(instance=comment)
     context = {'form': form}
-    return render(request, 'Modify/comment_modify.html', context)
+    return render(request, 'Modify/modify_Answer_comment.html', context)
 
 # 질문 댓글 삭제
 @login_required(login_url='login:login') # 로그인 상태 확인
@@ -99,8 +99,7 @@ def CommentModifyMovie(request, comment_id):
             return redirect('{}#comment_{}'.format(resolve_url('myweb:MoDetail', movie_id=comment.movie.id), comment.id))
     else:
         form = CommentForm(instance=comment)
-    context = {'form': form}
-    return render(request, 'Modify/comment_modify.html', context)
+    return render(request, 'Modify/modify_Answer_comment.html', {'form': form})
 
 # 영화 댓글 삭제
 @login_required(login_url='login:login')
@@ -154,7 +153,7 @@ def CommentModifyGame(request, comment_id):
     else:
         form = CommentForm(instance=comment)
     context = {'form': form}
-    return render(request, 'Modify/comment_modify.html', context)
+    return render(request, 'Modify/modify_Answer_comment.html', context)
 
 # 게임 댓글 삭제
 @login_required(login_url='login:login')

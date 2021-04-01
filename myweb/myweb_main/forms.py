@@ -4,7 +4,7 @@ from .models import Notice, Question, Answer, Comment, Movie, Game
 class NoticeForm(forms.ModelForm):
     class Meta:
         model = Notice # Notice 모델과 연결
-        fields = ['subject', 'content']
+        fields = ['subject', 'content', 'upload_file']
         labels = {
             'subject': '제목',
             'content': '내용',
@@ -13,7 +13,7 @@ class NoticeForm(forms.ModelForm):
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ['subject', 'content']
+        fields = ['subject', 'content', 'upload_file']
         labels = {
             'subject': '제목',
             'content': '내용',

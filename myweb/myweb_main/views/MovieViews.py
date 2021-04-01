@@ -75,7 +75,7 @@ def MovieCreate(request):
         if form.is_valid():
             movie = form.save(commit=False)
             movie.author = request.user
-            if request.FILES: # 파일 등록
+            if request.FILES:
                 if 'upload_file' in request.FILES.keys():
                     movie.file_subject = request.FILES['upload_file'].name
             movie.create_date = timezone.now()

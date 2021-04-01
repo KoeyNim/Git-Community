@@ -68,14 +68,14 @@ def GameList(request):
     return render(request, 'Game/game_list.html', context)
 
 # 등록
-@login_required(login_url='login:login') # 로그인 상태 확인
+@login_required(login_url='login:login')
 def GameCreate(request):
     if request.method == 'POST':
         form = GameForm(request.POST, request.FILES)
         if form.is_valid():
             game = form.save(commit=False)
             game.author = request.user
-            if request.FILES: # 파일 등록
+            if request.FILES:
                 if 'upload_file' in request.FILES.keys():
                     game.file_subject = request.FILES['upload_file'].name
             game.create_date = timezone.now()

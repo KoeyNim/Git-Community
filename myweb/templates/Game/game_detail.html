@@ -26,13 +26,13 @@
                         {% endif %}
 
                         <div class="ml-auto">
-                            추천수 : {{ game.voter.count }}&nbsp;
-                            조회수 : {{ game.hits }}
+                            추천수&nbsp;:&nbsp;{{ game.voter.count }}&nbsp;
+                            조회수&nbsp;:&nbsp;{{ game.hits }}
                         </div>
                     </div>
                     {% if game.upload_file %}
                     <div class="text-right">
-                        <span>첨부파일 :&nbsp;</span>
+                        <span>첨부파일&nbsp;:&nbsp;</span>
                         <a href="{% url 'myweb:GFileDownload' game.id %}" >{{ game.file_subject | truncatechars:20 }}</a>
                     </div>
                     {% endif %}

@@ -1,11 +1,40 @@
 {% extends "main/base.html" %}
 {% block title %} log_in.html {% endblock title %}
+
 {% load static %}
+
+<!--소셜로그인 기능 불러오기.-->
+{% load i18n %}
+{% load account socialaccount %}
+
 {% block extrastyle %} {% static "css/form.css" %} {% endblock %}
 
 {% block content %}
 <div class="flex-container bg-secondary setting-hw">
-    <div class="col-6 shadow border border-3 rounded-top bg-white">
+    <div class="col-6 col-xs-6 shadow border border-3 rounded-top bg-white">
+        <h1 class="text-center">소셜 로그인</h1>
+        <table align="center">
+            <tr>
+                <td>
+                <a href="{% provider_login_url 'kakao' %}">
+                    <img src="{% static 'img/social_login_bar/kakao_login_normal.png' %}"
+                         onmouseover="this.src='{% static 'img/social_login_bar/kakao_login_hover.png' %}'"
+                         onmouseleave="this.src='{% static 'img/social_login_bar/kakao_login_normal.png' %}'"height="40">
+                </a></td>
+                <td>
+                <a href="{% provider_login_url 'naver' %}">
+                    <img src="{% static 'img/social_login_bar/naver_login_Green.png' %}"
+                         onmouseover="this.src='{% static 'img/social_login_bar/naver_login_White.png' %}'"
+                         onmouseleave="this.src='{% static 'img/social_login_bar/naver_login_Green.png' %}'"height="40">
+                </a></td>
+                <td>
+                <a href="{% provider_login_url 'google' %}">
+                    <img src="{% static 'img/social_login_bar/google_login_normal.png' %}"
+                         onmouseover="this.src='{% static 'img/social_login_bar/google_login_pressed.png' %}'"
+                         onmouseleave="this.src='{% static 'img/social_login_bar/google_login_normal.png' %}'"height="40">
+                </a></td>
+            </tr>
+        </table>
         <h1 class="text-center">로그인</h1>
         <form method="post" class="post-form" action="{% url 'login:login' %}">
             {% csrf_token %}

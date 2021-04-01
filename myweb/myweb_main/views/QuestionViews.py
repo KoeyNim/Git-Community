@@ -73,40 +73,43 @@ def QuestionList(request):
 # 질문 등록
 @login_required(login_url='login:login')
 def QuestionCreate(request):
-
     if request.method == 'POST':
-        form = QuestionForm(request.POST)
+        form = QuestionForm(request.POST, request.FILES)
         if form.is_valid():
             question = form.save(commit=False)
             question.author = request.user
+            if request.FILES:
+                if 'upload_file' in request.FILES.keys():
+                    question.file_subject = request.FILES['upload_file'].name
             question.create_date = timezone.now()
             question.save()
             return redirect('myweb:QList')
     else:
         form = QuestionForm
-    return render(request, 'QnA/question_create.html', {'form': form})
+    return render(request, 'Post/post_create.html', {'form': form})
 
 # 질문 수정
 @login_required(login_url='login:login')
 def QuestionModify(request, question_id):
-
     question = get_object_or_404(Question, pk=question_id)
     if request.user != question.author:
         messages.error(request, '수정권한이 없습니다')
         return redirect('myweb:QDetail', question_id=question.id)
 
     if request.method == "POST":
-        form = QuestionForm(request.POST, instance=question)
+        form = QuestionForm(request.POST, request.FILES, instance=question)
         if form.is_valid():
             question = form.save(commit=False)
             question.author = request.user
+            if request.FILES: # 파일 등록
+                if 'upload_file' in request.FILES.keys():
+                    question.file_subject = request.FILES['upload_file'].name
             question.modify_date = timezone.now()
             question.save()
             return redirect('myweb:QDetail', question_id=question.id)
     else:
         form = QuestionForm(instance=question)
-    context = {'form': form}
-    return render(request, 'QnA/question_create.html', context)
+    return render(request, 'Post/post_create.html', {'form': form})
 
 # 질문 삭제
 @login_required(login_url='login:login')

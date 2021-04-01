@@ -8,6 +8,10 @@ from django.utils import timezone
 from ..forms import NoticeForm
 from ..models import Notice
 
+import urllib
+import os
+from django.http import HttpResponse, Http404
+
 # 내용 출력
 def NoticeDetail(request, notice_id):
 
@@ -62,16 +66,19 @@ def NoticeList(request):
 @login_required(login_url='login:login')
 def NoticeCreate(request):
     if request.method == 'POST':
-        form = NoticeForm(request.POST)
+        form = NoticeForm(request.POST, request.FILES)
         if form.is_valid():
             notice = form.save(commit=False)
             notice.author = request.user
+            if request.FILES:
+                if 'upload_file' in request.FILES.keys():
+                    notice.file_subject = request.FILES['upload_file'].name
             notice.create_date = timezone.now()
             notice.save()
             return redirect('myweb:NoList')
     else:
         form = NoticeForm
-    return render(request, 'Notice/notice_create.html', {'form': form})
+    return render(request, 'Post/post_create.html', {'form': form})
 
 # 수정
 @login_required(login_url='login:login') # 로그인 상태 확인
@@ -83,17 +90,19 @@ def NoticeModify(request, notice_id):
         return redirect('myweb:NoDetail', notice_id=notice.id)
 
     if request.method == "POST":
-        form = NoticeForm(request.POST, instance=notice)
+        form = NoticeForm(request.POST, request.FILES, instance=notice)
         if form.is_valid():
             notice = form.save(commit=False)
             notice.author = request.user
+            if request.FILES:
+                if 'upload_file' in request.FILES.keys():
+                    notice.file_subject = request.FILES['upload_file'].name
             notice.modify_date = timezone.now()
             notice.save()
             return redirect('myweb:NoDetail', notice_id=notice.id)
     else:
         form = NoticeForm(instance=notice)
-    context = {'form': form}
-    return render(request, 'Notice/notice_create.html', context)
+    return render(request, 'Post/post_create.html', {'form': form})
 
 # 삭제
 @login_required(login_url='login:login')
@@ -106,3 +115,17 @@ def NoticeDelete(request, notice_id):
     notice.delete()
 
     return redirect('myweb:NoList')
+
+# 파일 다운로드
+@login_required(login_url='login:login')
+def NoticeFileDownload(request, notice_id):
+    notice = get_object_or_404(Notice, pk=notice_id)
+    url = notice.upload_file.url[1:]
+
+    if os.path.exists(url):
+        with open(url, 'rb') as fh:
+            quote_file_url = urllib.parse.quote(notice.file_subject.encode('utf-8'))
+            response = HttpResponse(fh.read())
+            response['Content-Disposition'] = 'attachment;filename*=UTF-8\'\'%s' % quote_file_url
+            return response
+        raise Http404

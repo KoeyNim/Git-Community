@@ -26,13 +26,13 @@
                         {% endif %}
 
                         <div class="ml-auto">
-                            추천수 : {{ movie.voter.count }}&nbsp;
-                            조회수 : {{ movie.hits }}
+                            추천수&nbsp;:&nbsp;{{ movie.voter.count }}&nbsp;
+                            조회수&nbsp;:&nbsp;{{ movie.hits }}
                         </div>
                     </div>
                     {% if movie.upload_file %}
                     <div class="text-right">
-                        <span>첨부파일 :&nbsp;</span>
+                        <span>첨부파일&nbsp;:&nbsp;</span>
                         <a href="{% url 'myweb:MoFileDownload' movie.id %}" >{{ movie.file_subject | truncatechars:20 }}</a>
                     </div>
                     {% endif %}

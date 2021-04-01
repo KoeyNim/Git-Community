@@ -27,14 +27,14 @@
                         {% endif %}
 
                         <div class="ml-auto">
-                            추천수 : {{ question.voter.count }}&nbsp;
-                            조회수 : {{ question.hits }}
+                            추천수&nbsp;:&nbsp;{{ question.voter.count }}&nbsp;
+                            조회수&nbsp;:&nbsp;{{ question.hits }}
                         </div>
                     </div>
                     {% if question.upload_file %}
                     <div class="text-right">
-                        <span>첨부파일 :&nbsp;</span>
-                        <a href="{% url 'myweb:GFileDownload' game.id %}" >{{ question.file_subject | truncatechars:20 }}</a>
+                        <span>첨부파일&nbsp;:&nbsp;</span>
+                        <a href="{% url 'myweb:QFileDownload' question.id %}" >{{ question.file_subject | truncatechars:20 }}</a>
                     </div>
                     {% endif %}
 

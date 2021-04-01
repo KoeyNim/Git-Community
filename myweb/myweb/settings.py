@@ -31,17 +31,36 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [ # 앱 추가시 적어 넣음
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+]
+
+PROJECT_APPS = [
     'login.apps.LoginOutConfig',
     'myweb_main.apps.MywebMainConfig',
-
 ]
+
+SOCIAL_LOGIN_APPS = [
+    'django.contrib.sites',
+
+    # allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # provider
+    'allauth.socialaccount.providers.kakao',
+    'allauth.socialaccount.providers.naver',
+    'allauth.socialaccount.providers.google',
+]
+
+
+INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + SOCIAL_LOGIN_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -144,10 +163,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # custom user model path
 AUTH_USER_MODEL = "login.User"
 
+# social login
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1
+
 # user login
 LOGIN_REDIRECT_URL = '/'
 
-LOGOUT_REDIRECT_URL = '/login/login/'
+LOGOUT_REDIRECT_URL = '/login/'
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 

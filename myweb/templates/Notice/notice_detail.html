@@ -27,10 +27,16 @@
                         {% endif %}
 
                         <div class="ml-auto">
-                            추천수 : {{ notice.voter.count }}&nbsp;
-                            조회수 : {{ notice.hits }}
+                            추천수&nbsp;:&nbsp;{{ notice.voter.count }}&nbsp;
+                            조회수&nbsp;:&nbsp;{{ notice.hits }}
                         </div>
                     </div>
+                    {% if notice.upload_file %}
+                    <div class="text-right">
+                        <span>첨부파일&nbsp;:&nbsp;</span>
+                        <a href="{% url 'myweb:NoFileDownload' notice.id %}" >{{ notice.file_subject | truncatechars:20 }}</a>
+                    </div>
+                    {% endif %}
 
                     <div class="card-text">{{ notice.content | safe }}</div>
 

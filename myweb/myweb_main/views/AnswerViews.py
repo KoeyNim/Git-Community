@@ -46,7 +46,7 @@ def AnswerModify(request, answer_id):
     else:
         form = AnswerForm(instance=answer)
     context = {'answer': answer, 'form': form}
-    return render(request, 'QnA/answer_create.html', context)
+    return render(request, 'Modify/modify_Answer_comment.html', context)
 
 # 답변 삭제
 @login_required(login_url='login:login')
