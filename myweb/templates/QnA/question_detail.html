@@ -196,3 +196,30 @@
     </div>
 </div>
 {% endblock %}
+
+{% block script %}
+<script type='text/javascript'>
+$(document).ready(function(){
+    $(".delete").on('click', function() { // 삭제 버튼
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = $(this).data('uri');
+        }
+    });
+    $(".recommend").on('click', function() { // 추천 버튼
+        if(confirm("정말로 추천하시겠습니까?")) {
+            location.href = $(this).data('uri');
+        }
+    });
+    $('#hide_more_button').click(function(){ // 댓글 접기
+        $('#more_comment').hide();
+        $('#show_more_button').show();
+        $('#hide_more_button').hide();
+    });
+    $('#show_more_button').click(function(){ // 댓글 펼치기
+        $('#more_comment').show();
+        $('#show_more_button').hide();
+        $('#hide_more_button').show();
+    });
+});
+</script>
+{% endblock %}

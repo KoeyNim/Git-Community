@@ -109,3 +109,28 @@
     <input type="hidden" id="page" name="page" value="{{ page }}">
 </form>
 {% endblock %}
+
+{% block script %}
+<script type='text/javascript'>
+$(document).ready(function(){
+    $(".page-link").on('click', function() { // page-link 클릭 시 스크립트 실행
+        $("#page").val($(this).data("page"));
+        $("#searchForm").submit();
+    });
+    $("#btn_search").on('click', function() { // 검색버튼을 클릭하면 검색어 텍스트창에 입력된 값을 폼 kw필드에 설정하여 폼을 요청
+        $("#kw").val($(".kw").val());
+        $("#page").val(1);  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
+        $("#searchForm").submit();
+    });
+
+    $(".so").on('change', function() { // so라는 클래스를 가지고 있는 select박스의 값이 변경되면 선택된 값을 so 필드에 설정하여 폼 요청
+        $("#so").val($(this).val());
+        $("#page").val(1);
+        $("#searchForm").submit();
+    });
+    $(document).on('click','.clickAble',function() {
+    window.location=$(this).data("href");
+    });
+});
+</script>
+{% endblock %}
