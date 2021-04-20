@@ -3,21 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="4afe7e43-fb32-4f98-9608-a6639e355b77" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/social_login_bar/google_login_focus.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/social_login_bar/kakao_login_hover.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/img/social_login_bar/kakao_login_pressed.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/social_login_bar/naver_login_Green.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/img/social_login_bar/naver_login_normal.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/social_login_bar/naver_login_White.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/img/social_login_bar/naver_login_pressed.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Game/game_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Game/game_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Game/game_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Game/game_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/forms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/myweb/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/myweb/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/Login/log_in.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Login/log_in.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Movie/movie_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Movie/movie_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Movie/movie_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Movie/movie_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Notice/notice_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Notice/notice_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Notice/notice_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Notice/notice_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Post/post_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Post/post_create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/QnA/question_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/QnA/question_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/QnA/question_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/QnA/question_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/main/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/Login/social_signup.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
