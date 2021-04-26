@@ -31,6 +31,16 @@
             <input type="text" class="form-control" name="email" id="email"
                    value="{{ form.email.value|default_if_none:'' }}">
         </div>
+        <div class="form-group">
+            <label for="email">이름</label>
+            <input type="text" class="form-control" name="name" id="name"
+                   value="{{ form.name.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="email">전화번호</label>
+            <input type="text" class="form-control" name="phone" id="phone"
+                   value="{{ form.phone.value|default_if_none:'' }}">
+        </div>
         <div class="d-flex justify-content-end py-3">
             <button type="submit" class="btn btn-outline-secondary">계정 생성</button>
         </div>

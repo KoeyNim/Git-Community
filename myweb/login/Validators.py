@@ -32,3 +32,26 @@ def SignupValidate(value):
             ('최소 하나이상의 숫자를 입력해야 합니다.'),
             params={'value': value},
         )
+
+def NameValidate(value):
+    if value.isalnum() == False:
+        raise ValidationError(
+            ('특수문자 및 공백은 사용할 수 없습니다.'),
+            params={'value': value},
+        )
+    elif re.search('[0-9]+', value) is not None:
+        raise ValidationError(
+            ('이름은 한글, 영문만 가능합니다.'),
+            params={'value': value},
+        )
+def PhoneValidate(value):
+    if value.isalnum() == False:
+        raise ValidationError(
+            ('특수문자 및 공백은 사용할 수 없습니다.'),
+            params={'value': value},
+        )
+    elif re.search('[a-zA-Zㄱ-ㅣ가-힣]+', value) is not None:
+        raise ValidationError(
+            ('숫자만 가능합니다.'),
+            params={'value': value},
+        )

@@ -12,9 +12,11 @@ def signup(request):
             # 회원가입에서 입력한 값을 얻기 위함
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
+            name = form.cleaned_data.get('name')
+            phone = form.cleaned_data.get('phone')
 
             # 신규 사용자를 저장한 후에 자동 로그인
-            user = authenticate(username=username, password=raw_password)
+            user = authenticate(username=username, password=raw_password, name=name, phone=phone)
             login(request, user)
 
             return redirect('myweb:home')

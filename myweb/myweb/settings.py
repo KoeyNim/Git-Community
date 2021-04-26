@@ -54,7 +54,6 @@ SOCIAL_LOGIN_APPS = [
     'allauth.socialaccount',
 
     # provider
-    'allauth.socialaccount.providers.kakao',
     'allauth.socialaccount.providers.naver',
     'allauth.socialaccount.providers.google',
 ]

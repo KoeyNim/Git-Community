@@ -14,13 +14,6 @@
     <div class="shadow border border-3 rounded-top bg-white">
         {% include "Errors/form_errors.html" %}
         <h1 class="text-center">소셜 로그인</h1>
-                <div class="col-xs-4"><a href="{% provider_login_url 'kakao' %}">
-                <img height=50 width=400px
-                     src="{% static 'img/social_login_bar/kakao_login_normal.png' %}"
-                     onmouseover="this.src='{% static 'img/social_login_bar/kakao_login_pressed.png' %}'"
-                     onmouseleave="this.src='{% static 'img/social_login_bar/kakao_login_normal.png' %}'">
-            </a></div>
-
                 <div class="col-xs-4"><a href="{% provider_login_url 'naver' %}">
                     <img height=50 width=400px
                          src="{% static 'img/social_login_bar/naver_login_Green.png' %}"
