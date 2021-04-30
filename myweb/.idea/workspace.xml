@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4afe7e43-fb32-4f98-9608-a6639e355b77" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../myweb.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/secrets.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/Validators.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/Validators.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/login/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/login/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myweb/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/myweb/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Login/log_in.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Login/log_in.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/Login/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/Login/signup.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
